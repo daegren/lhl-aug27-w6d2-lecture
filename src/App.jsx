@@ -9,12 +9,17 @@ class App extends Component {
 
     this.state = {
       color: 'black',
-      possibleColors: [
-        { name: 'Black', color: 'black' },
-        { name: 'Red', color: 'red' }
-      ],
+      possibleColors: [],
       colorInputValue: ''
     };
+  }
+
+  componentDidMount() {
+    const possibleColors = JSON.parse(localStorage.getItem('possibleColors'));
+
+    if (possibleColors) {
+      this.setState({ possibleColors });
+    }
   }
 
   render() {
@@ -34,10 +39,18 @@ class App extends Component {
   }
 
   _addColor = color => {
-    this.setState(prevState => ({
-      ...prevState,
-      possibleColors: [...prevState.possibleColors, color]
-    }));
+    this.setState(
+      prevState => ({
+        ...prevState,
+        possibleColors: [...prevState.possibleColors, color]
+      }),
+      () => {
+        localStorage.setItem(
+          'possibleColors',
+          JSON.stringify(this.state.possibleColors)
+        );
+      }
+    );
   };
 
   _handleColorChange = color => {
