@@ -9,7 +9,10 @@ class App extends Component {
 
     this.state = {
       color: 'black',
-      possibleColors: ['black', 'red', 'green', 'blue', 'aquamarine', 'tomato'],
+      possibleColors: [
+        { name: 'Black', color: 'black' },
+        { name: 'Red', color: 'red' }
+      ],
       colorInputValue: ''
     };
   }
